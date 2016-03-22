@@ -6,6 +6,7 @@
 #include <vector>
 #include <array>
 #include <complex>
+#include <stdexcept>
 
 //#define _USE_MATH_DEFINES
 #include <cmath>
