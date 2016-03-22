@@ -4,7 +4,7 @@
 #include <vector>
 #include <complex>
 #include <string>
-#include "SCMap/src/types.h"
+#include <SCMap/src/types.h>
 
 struct stress{
 	double x;

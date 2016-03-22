@@ -1,6 +1,6 @@
 // main.cpp : Defines the entry point for the console application.
 //
-#include "stdafx.h"
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -10,9 +10,9 @@
 //#define _USE_MATH_DEFINES
 #include <cmath>
 
-#include "types.h"
-#include "SCMapSeries.h"
-#include "StressInfPlate.h"
+#include "SCMap/src/types.h"
+#include "SCMap/src/SCMapSeries.h"
+#include "src/StressInfPlate.h"
 
 void
 setTestPolygon(std::vector<double>& angle, std::vector< std::complex<sc::REAL> >& prevertex)
@@ -81,13 +81,13 @@ checkRadius(std::vector<double> const& angle, std::vector< std::complex<sc::REAL
 
 	std::ofstream os("radius.txt");
 
-	for each (auto n in N)
+	for (auto n : N)
 	{
 		std::cout << n << std::endl;
 		scMap = new SCMapSeries(n, angle, prevertex, C);
 
 		int i = 1;
-		for each (auto z in prevertex)
+		for (auto z : prevertex)
 		{
 			os << i++ << ' ' << scMap->getRadius(z) << ' ';
 		}
@@ -107,7 +107,7 @@ checkRadius(SCMapSeries const& scMap, std::vector< std::complex<sc::REAL> > cons
 	std::ofstream os("radius.txt");
 
 	int i = 0;
-	for each (auto z in prevertex)
+	for (auto z : prevertex)
 	{
 		os << i++ << ' ' << scMap.getRadius(z) << ' ';
 	}
@@ -196,7 +196,7 @@ writeResults2D(SCMapSeries const& scMap, StressInfPlate const& sip)
 
 	std::ofstream osCSV("results.csv");
 
-	unsigned node = 1;
+	//unsigned node = 1;
 	for (unsigned i = 0; i < Nr; i++)
 	{
 		x = 1.0*i / Nr;
@@ -297,7 +297,7 @@ appendPointStress(unsigned N, double sA, double sB, double sC)
 }
 
 int
-_tmain(int argc, _TCHAR* argv[])
+main(int argc, char* argv[])
 {
 	std::vector<double> angle;
 	std::vector< std::complex<sc::REAL> > prevertex, vertex;

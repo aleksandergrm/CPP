@@ -40,7 +40,7 @@ StressInfPlate::getValue(std::complex<sc::REAL> const& p) const
 	std::complex<sc::REAL> Domega = getDOmega(p);
 	std::complex<sc::REAL> DDomega = getDDOmega(p);
 
-	std::complex<sc::REAL> varphi = getVarphi(p);
+	//std::complex<sc::REAL> varphi = getVarphi(p);
 	std::complex<sc::REAL> Dvarphi = getDVarphi(p);
 	std::complex<sc::REAL> DDvarphi = getDDVarphi(p);
 
@@ -59,7 +59,7 @@ StressInfPlate::getValue(std::complex<sc::REAL> const& p) const
 	std::complex<sc::REAL> Dpsi = mGamma2 + mGamma1/(p*p) - DQ*Phi - Q*DPhi - getDK(p);
 
 	std::complex<sc::REAL> A =  std::complex<sc::REAL>(2., 0.) * ( Phi + std::conj(Phi) );
-	
+
 	std::complex<sc::REAL> t_pc = std::complex<sc::REAL>(2.0, 0.0) *p*p / (std::abs(p*p) *  std::conj(Domega));
 	std::complex<sc::REAL> t_cc = std::complex<sc::REAL>(2.0, 0.0) / Domega;
 	std::complex<sc::REAL> q = std::conj(omega)*DPhi + Dpsi;
@@ -89,7 +89,7 @@ StressInfPlate::getValue(std::complex<sc::REAL> const& p) const
 void
 StressInfPlate::generateCoefficients()
 {
-	setPCoeff();	
+	setPCoeff();
 	setQCoeff();
 	solveACoeff();
 	setKCoeff();
@@ -168,7 +168,7 @@ StressInfPlate::solveACoeff()
 
 	setASystem(a_old, a_new);
 	//printVec(a_new, "A");
-	
+
 	err_new = systemError(a_old, a_new);
 	std::cout << " -> loop_err_INITIAL=" << err_new << std::endl;
 
@@ -176,10 +176,10 @@ StressInfPlate::solveACoeff()
 	{
 		a_old = a_new;
 		err_old = err_new;
-		
+
 		setASystem(a_old, a_new);
 		//printVec(a_new, "A");
-		
+
 		err_new = systemError(a_old, a_new);
 
 		std::cout << " -> err_diff=" << std::abs(err_old - err_new) << std::endl;
@@ -192,7 +192,7 @@ StressInfPlate::solveACoeff()
 
 void
 StressInfPlate::setASystem(
-	std::vector<std::complex<sc::REAL> > const& a, 
+	std::vector<std::complex<sc::REAL> > const& a,
 	std::vector<std::complex<sc::REAL> > & b
 	)
 {
@@ -241,9 +241,9 @@ StressInfPlate::setKCoeff()
 	}
 }
 
-sc::REAL 
+sc::REAL
 StressInfPlate::systemError(
-	std::vector<std::complex<sc::REAL> > const& a, 
+	std::vector<std::complex<sc::REAL> > const& a,
 	std::vector<std::complex<sc::REAL> > const& b
 	)
 {
@@ -252,7 +252,7 @@ StressInfPlate::systemError(
 
 	for (unsigned i = 0; i < N; i++)
 		err += std::abs(a[i] - b[i]);
-	
+
 	return err;
 }
 
@@ -463,7 +463,7 @@ std::complex<sc::REAL> const& z
 	return buf;
 }
 
-std::vector<std::complex<sc::REAL> > 
+std::vector<std::complex<sc::REAL> >
 StressInfPlate::zeros(unsigned N)
 {
 	std::vector<std::complex<sc::REAL> > v;
@@ -480,7 +480,7 @@ StressInfPlate::printVec(std::vector<std::complex<sc::REAL> > const& v, std::str
 	unsigned N = v.size();
 	std::cout << "vector size=" << N << std::endl;
 	std::cout << "vector name: " << name << std::endl;
-	
+
 	for (unsigned i = 0; i < N; i++)
 		std::cout << "  [" << i << "] = " << v[i] << std::endl;
 }
